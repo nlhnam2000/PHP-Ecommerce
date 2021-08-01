@@ -106,10 +106,10 @@ class Product
         return mysqli_fetch_array($result)[0];
     }
 
-    public function searchProduct($product_name)
+    public function searchProduct($key)
     {
-        $sql = "SELECT * from Product WHERE LOWER(product_name) LIKE LOWER('%{$product_name}%')";
-        $query = $this->db->con->query($sql);
+        $sql = "SELECT * from Product WHERE LOWER(product_name) LIKE LOWER('%{$key}%')";
+        $query = $this->db->query($sql);
 
         $resultArray = array();
         while ($data = mysqli_fetch_array($query, MYSQLI_ASSOC)) {

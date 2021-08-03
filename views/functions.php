@@ -51,6 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
         $User->deleteCart($_POST['product_id']);
     }
-    if (isset($_POST['payment-submit'])) {
+    if (isset($_POST['payemnt-confirm-submit'])) {
+        $result = $Cart->createInvoice(
+            $_POST['customer-id-invoice'],
+            $_POST['customer-address-invoice'],
+            $_POST['customer-phone-invoice'],
+            $_POST['total-price-invoice']
+        );
+        if ($result) {
+            echo "<script type='text/javascript'>alert('success'); window.location.href='index.php';</script>";
+        } else {
+            echo 'no';
+        }
     }
 }

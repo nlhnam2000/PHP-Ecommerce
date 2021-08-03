@@ -105,6 +105,7 @@ class User
             $data = array(
                 "user_id" => $this->user_id,
                 "product_id" => $productId,
+                "product_price" => $productPrice,
                 "quantity" => 1,
                 "cart_price" => $productPrice
             );

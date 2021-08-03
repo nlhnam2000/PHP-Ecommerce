@@ -55,15 +55,15 @@ $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION[
                 </div>
             </div>
             <div class="col-3 subtotal d-flex flex-column">
-                <form action="payment.php" method="POST">
+                <form action="paymentConfirm.php" method="POST">
                     <div class="cart-shipping bg-light form-group">
                         <p class="heading">
-                            <span><b>Giao tới</b></span>
-                            <span><a href="">Thay đổi</a></span>
+                            <span><b>Delivery to</b></span>
+                            <span><a href="">Modify</a></span>
                         </p>
                         <p class="title">
                             <span class="name border-right"><b><?php echo $_SESSION['fullname'] ?></b></span>
-                            <span class="phone"><b>0849562411</b></span>
+                            <span class="phone"><b><?php echo $_SESSION['phone'] ?></b></span>
                         </p>
                         <span class="address text-secondary">
                             135B Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, Hồ Chí Minh
@@ -71,32 +71,32 @@ $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION[
                     </div>
                     <div class="cart-promotion bg-light form-group">
                         <p class="heading">
-                            <span style="font-size: 16px"><b>Khuyến mãi</b></span>
+                            <span style="font-size: 16px"><b>Promotion</b></span>
                         </p>
                         <span class="title">
-                            <span><input type="text" placeholder="Nhập mã khuyến mãi" class="form-control"></span>
+                            <span><input width="100%" type="text" placeholder="Your voucher" class="form-control p-2"></span>
                         </span>
                     </div>
                     <div class="cart-subtotal bg-light form-group">
                         <p class="pre-money">
-                            <span>Tạm tính</span>
+                            <span>Pre money</span>
                             <span id="premoney"><?php echo isset($prices) ? number_format($Cart->countSubtotal($prices)) : 0 ?> VND</span>
                         </p>
                         <p class="promotion-money border-bottom pb-4">
-                            <span>Giảm giá</span>
+                            <span>By promotion</span>
                             <span>0 VND</span>
                         </p>
                         <p class="total-money">
-                            <span style="font-size: 16px;">Tổng cộng</span>
+                            <span style="font-size: 16px;">Total</span>
                             <span style="font-size: 22px;" class="text-right text-danger">
                                 <b><?php echo isset($prices) ? number_format($Cart->countSubtotal($prices)) : 0 ?> VND</b> <br>
-                                <i style="font-size: 13px;" class="text-secondary">(đã bao gồm VAT nếu có)</i>
+                                <i style="font-size: 13px;" class="text-secondary">(including VAT if exists)</i>
                             </span>
                             <input type="hidden" name="user-id-payment" value="<?php echo $_SESSION['user_id'] ?>">
                             <input type="hidden" name="total-money-payment" value="<?php echo isset($prices) ? $Cart->countSubtotal($prices) : 0 ?>" />
                         </p>
                     </div>
-                    <input class="btn btn-danger form-control" type="submit" name="payment-submit" value="Tiến hành đặt hàng">
+                    <input class="btn btn-danger form-control" type="submit" name="payment-submit" value="Proceed to buy">
                 </form>
             </div>
         </div>

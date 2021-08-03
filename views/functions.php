@@ -51,4 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
         $User->deleteCart($_POST['product_id']);
     }
+    if (isset($_POST['payment-submit'])) {
+    }
 }

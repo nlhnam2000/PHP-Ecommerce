@@ -106,6 +106,13 @@ class Product
         return mysqli_fetch_array($result)[0];
     }
 
+    public function getImage($product_id)
+    {
+        $result = $this->db->query("SELECT product_image FROM Product WHERE product_id = {$product_id}");
+
+        return mysqli_fetch_array($result)[0];
+    }
+
     public function searchProduct($key)
     {
         $sql = "SELECT * from Product WHERE LOWER(product_name) LIKE LOWER('%{$key}%')";

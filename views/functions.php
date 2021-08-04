@@ -4,11 +4,13 @@ require('../database/DBConnection.php');
 require('../database/Product.php');
 require('../database/Cart.php');
 require('../database/User.php');
+require('../database/Invoice.php');
 
 $Product = new Product();
 $productShuffled = $Product->getRandomProduct();
 
 $Cart = new Cart();
+$Invoice = new Invoice();
 
 // POST METHOD: 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

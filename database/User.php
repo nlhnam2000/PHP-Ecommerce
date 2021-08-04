@@ -137,7 +137,7 @@ class User
         if ($result) {
             header("Location: " . $_SERVER['PHP_SELF']);
         }
-        return $result;
+        echo 'cannot save for later';
     }
 
     public function getOwnedCart($table = 'Cart')

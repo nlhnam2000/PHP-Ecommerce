@@ -60,11 +60,14 @@ session_start();
         <ul class="button-group list-unstyled m-0 float-right">
             <?php
             if ($_SESSION['logged'] === true) {
-                echo " <li>
-                <a class='btn btn-success mr-3 text-white'>Hi " . $_SESSION['username'] . "</a>
-            </li>
-            <li>
-                <a href='logout.php' class='btn btn-secondary'>Logout</a>
+                echo " <li class='dropdown'>
+                <button class='btn btn-success mr-3 text-white dropdown-toggle' data-toggle='dropdown'>
+                    Hi " . $_SESSION['username'] . "
+                </button>
+                <div class='dropdown-menu dropdown-menu-right'>
+                    <a class='dropdown-item' href='logout.php'>Logout</a>
+                    <a class='dropdown-item' href='purchase.php'>My order</a>
+                </div>
             </li>";
             } else {
                 echo "<li?>

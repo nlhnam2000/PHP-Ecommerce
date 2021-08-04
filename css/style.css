@@ -244,3 +244,46 @@ nav img {
 .delivery-cart-info img {
   width: 10%;
 }
+
+#order-history {
+  margin: 20px auto 20px auto;
+  width: 75%;
+}
+
+.user-profile-wrapper {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.avatar-wrapper {
+  padding: 15px; 
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+}
+
+.avatar-wrapper i {
+  color: #e6e6e6; 
+}
+
+.side-menu {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  color: black;
+}
+
+.menu-item li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu-item i {
+  font-size: large;
+  margin-right: 10px;
+  margin-top: 2px;
+}

@@ -2,7 +2,7 @@
 session_start();
 include('header.php');
 $Product = new Product();
-$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
 $ownedCart = $User->getOwnedCart();
 ?>
 

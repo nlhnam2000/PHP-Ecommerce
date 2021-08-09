@@ -6,7 +6,7 @@ require('../../database/User.php');
 
 // $db = new DbConnection();
 $product = new Product();
-$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
 
 if (isset($_POST['productid']) && isset($_POST['quantity'])) { // if the quantity button is pressed (ajax method in index.js)
 

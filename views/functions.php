@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['fullname'] = $User->fullname;
             $_SESSION['phone'] = $User->phone;
             $_SESSION['email'] = $User->email;
-            $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+            $_SESSION['isAdmin'] = $User->isAdmin;
+            $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
 
             header("Location: index.php");
         } else {
@@ -38,19 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $result = $User->signup($_POST['fullname'], $_POST['username'], $_POST['phone'], $_POST['email'], password_hash($_POST['password1'], PASSWORD_DEFAULT));
     }
     if (isset($_POST['new-items-submit']) || isset($_POST['book-submit']) || isset($_POST['shoe-submit'])) {
-        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
         $User->addToCart($_POST['product_id'], $_POST['product_price']);
     }
     if (isset($_POST['wishlist-submit'])) {
-        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
         $User->saveForLater($_POST['product_id']);
     }
     if (isset($_POST['cart-submit'])) {
-        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
         $User->saveForLater($_POST['product_id'], 'Wishlist', 'Cart');
     }
     if (isset($_POST['delete-cart-submit'])) {
-        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+        $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
         $User->deleteCart($_POST['product_id']);
     }
     if (isset($_POST['payemnt-confirm-submit'])) {

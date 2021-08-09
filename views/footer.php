@@ -51,7 +51,7 @@
     </a>
 </form> -->
 <?php
-$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
 ?>
 <form action="" class="form-inline cart-icon">
     <a href="cart.php" class="rounded-pill" style="background: rgb(255, 241, 237); padding: 5px 10px">

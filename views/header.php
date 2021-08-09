@@ -23,7 +23,6 @@ session_start();
     <?php
     require('functions.php');
 
-
     ?>
 
 </head>
@@ -65,8 +64,8 @@ session_start();
                     Hi " . $_SESSION['username'] . "
                 </button>
                 <div class='dropdown-menu dropdown-menu-right'>
-                    <a class='dropdown-item' href='logout.php'>Logout</a>
                     <a class='dropdown-item' href='purchase.php'>My order</a>
+                    <a class='dropdown-item' href='logout.php'>Logout</a>
                 </div>
             </li>";
             } else {

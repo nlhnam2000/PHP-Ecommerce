@@ -5,7 +5,7 @@ require('../../database/Product.php');
 require('../../database/User.php');
 
 $product = new Product();
-$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email']);
+$User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
 
 $output = "";
 

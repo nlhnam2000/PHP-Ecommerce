@@ -48,9 +48,11 @@ nav img {
 #shoes-list,
 #payment-confirm {
   margin: 0 20px 50px 20px;
-  padding-left: 50px;
-  padding-right: 50px;
+  /* padding-left: 50px;
+  padding-right: 50px; */
   position: relative;
+  width: 90%;
+  margin: 20px auto;
 }
 
 .pagination-form {
@@ -245,7 +247,8 @@ nav img {
   width: 10%;
 }
 
-#order-history {
+#order-history,
+#admin-dashboard {
   margin: 20px auto 20px auto;
   width: 75%;
 }

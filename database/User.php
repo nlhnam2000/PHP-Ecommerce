@@ -8,6 +8,7 @@ class User
     public $fullname;
     public $phone;
     public $email;
+    public $isAdmin = false;
 
     private function __construct()
     {
@@ -21,20 +22,16 @@ class User
     }
 
     // complete User object when logged in (Factory design pattern)
-    public static function UserLogged($user_id, $username, $fullname, $phone, $email)
+    public static function UserLogged($user_id, $username, $fullname, $phone, $email, $isAdmin)
     {
         $userObj = new User();
-        // self::$user_id = $user_id;
-        // self::$username = $username;
-        // self::$fullname = $fullname;
-        // self::$phone = $phone;
-        // self::$email = $email;
 
         $userObj->user_id = $user_id;
         $userObj->username = $username;
         $userObj->fullname = $fullname;
         $userObj->phone = $phone;
         $userObj->email = $email;
+        $userObj->isAdmin = $isAdmin;
 
         return $userObj;
     }
@@ -58,6 +55,9 @@ class User
                 $this->fullname = $data[0]['fullname'];
                 $this->phone = $data[0]['phone'];
                 $this->email = $data[0]['email'];
+                $this->isAdmin = $data[0]['isAdmin'];
+
+
                 return true;
             }
             // return $resultArray;
@@ -66,7 +66,7 @@ class User
     }
     public function signup($fullname, $username, $phone, $email, $hashed_password)
     {
-        $sql = "INSERT INTO User_DB (fullname, username, phone, user_password, email) VALUES ('$fullname', '$username', '$phone', '$hashed_password', '$email')";
+        $sql = "INSERT INTO User_DB (fullname, username, phone, user_password, email, isAdmin) VALUES ('$fullname', '$username', '$phone', '$hashed_password', '$email', 0)";
         $query = $this->db->query($sql);
 
         if ($query) {
@@ -94,7 +94,7 @@ class User
 
                 // execute query
                 $result = $this->db->query($sql);
-                return $result; // to sign that insert query is success
+                return $result; // to verify that insert query is success
             }
         }
     }
@@ -170,5 +170,19 @@ class User
             $cartPrice = $product->getPrice($productId) * $quantity;
             return $this->db->query("UPDATE Cart SET quantity = {$quantity}, cart_price = {$cartPrice} WHERE product_id = {$productId} AND user_id = {$this->user_id}");
         }
+    }
+
+    public function updateInvoiceStatus($invoiceID, $status = 'Confirmed')
+    {
+        if ($this->isAdmin) {
+            $sql = "UPDATE Invoice SET status = '{$status}' WHERE InvoiceID = {$invoiceID}";
+            $query = $this->db->query($sql);
+
+            if ($query) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

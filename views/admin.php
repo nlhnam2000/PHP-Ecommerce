@@ -1,13 +1,34 @@
 <?php
 session_start();
-
+if ($_SESSION['isAdmin'] != 1) {
+    header("Location: index.php");
+}
 include('header.php');
 $User = User::UserLogged($_SESSION['user_id'], $_SESSION['username'], $_SESSION['fullname'], $_SESSION['phone'], $_SESSION['email'], $_SESSION['isAdmin']);
-$invoice = $Invoice->getInvoice($_SESSION['user_id']);
+$orderList = $Invoice->getAllInvoices();
+
+if (isset($_POST['cancel-invoice-submit'])) {
+    $result = $User->updateInvoiceStatus($_POST['invoice-id'], 'Cancel');
+    if ($result) {
+        header("Location: " . $_SERVER['PHP_SELF']);
+    } else {
+        echo 'No';
+    }
+}
+if (isset($_POST['confirm-invoice-submit'])) {
+    $result = $User->updateInvoiceStatus($_POST['invoice-id']);
+    if ($result) {
+        header("Location: " . $_SERVER['PHP_SELF']);
+    } else {
+        echo 'No';
+    }
+}
+
+
 ?>
 
-<main>
-    <section id="order-history">
+<main style="width: 100%;">
+    <section id="admin-dashboard">
         <div class="row">
             <div class="sidebar col-3 d-flex flex-column">
                 <div class="user-profile-wrapper d-flex flex-row">
@@ -25,7 +46,7 @@ $invoice = $Invoice->getInvoice($_SESSION['user_id']);
                     <li><a href="">
                             <div class="menu-item">
                                 <i class="far fa-user"></i>
-                                <p>Account information</p>
+                                <p>User account</p>
                             </div>
                         </a></li>
                     <li><a href="">
@@ -49,7 +70,15 @@ $invoice = $Invoice->getInvoice($_SESSION['user_id']);
                 </ul>
             </div>
             <div class="order-content-wrapper col-9 p-3">
-                <?php foreach ($invoice as $i) { ?>
+                <div class="invoice-status d-flex flex-row" style="align-items: center; justify-content: space-between; margin-bottom: 15px">
+                    <button class="btn btn-light active" style="width: 30%;">All</button>
+                    <button class="btn btn-light" style="width: 30%;">Waiting</button>
+                    <button class="btn btn-light" style="width: 30%;">Confirmed</button>
+                    <button class="btn btn-light" style="width: 30%;">In delivery</button>
+                    <button class="btn btn-light" style="width: 30%;">Shipped</button>
+                    <button class="btn btn-light" style="width: 30%;">Canceled</button>
+                </div>
+                <?php foreach ($orderList as $i) { ?>
                     <div class="bg-light mb-3 p-4">
                         <div class="d-flex flex-row" style="justify-content: space-between;">
                             <h6 class="text-secondary"><?php echo explode(" ", $i['dateOfBill'])[0] ?></h6>
@@ -75,9 +104,24 @@ $invoice = $Invoice->getInvoice($_SESSION['user_id']);
                         <?php
                             }, $products);
                         } ?>
-                        <h4 class="text-right">Total:
-                            <span class="text-danger"><small>₫</small><?php echo number_format($i['totalPrice']) ?></span>
-                        </h4>
+                        <div class="customer-info d-flex flex-row flex-wrap" style="align-items: center; justify-content: space-between">
+                            <h6>Customer: <?php echo $i['fullname'] ?></h6>
+                            <h6>Phone: <?php echo $i['phone'] ?></h6>
+                            <h6>Delivery to: <?php echo $i['address'] ?></h6>
+                            <h5>Total:
+                                <span class="text-danger"><small>₫</small><?php echo number_format($i['totalPrice']) ?></span>
+                                </h6>
+                        </div>
+                        <div class="confirm-button d-flex flex-row mt-3 w-100" style="justify-content: flex-end">
+                            <form action="" method="POST">
+                                <input type="hidden" name="invoice-id" value="<?php echo $i['invoiceID'] ?>">
+                                <button class="btn btn-danger mr-3" name="cancel-invoice-submit">Cancel</button>
+                            </form>
+                            <form action="" method="POST">
+                                <input type="hidden" name="invoice-id" value="<?php echo $i['invoiceID'] ?>">
+                                <button class="btn btn-success" name="confirm-invoice-submit">Confirm</button>
+                            </form>
+                        </div>
                     </div>
                 <?php } ?>
             </div>

@@ -22,7 +22,6 @@ session_start();
 
     <?php
     require('functions.php');
-
     ?>
 
 </head>
@@ -59,7 +58,20 @@ session_start();
         <ul class="button-group list-unstyled m-0 float-right">
             <?php
             if ($_SESSION['logged'] === true) {
-                echo " <li class='dropdown'>
+
+                if ($_SESSION['isAdmin'] == 1) {
+                    echo " <li class='dropdown'>
+                <button class='btn btn-success mr-3 text-white dropdown-toggle' data-toggle='dropdown'>
+                    Hi " . $_SESSION['username'] . "
+                </button>
+                <div class='dropdown-menu dropdown-menu-right'>
+                    <a class='dropdown-item' href='purchase.php'>My order</a>
+                    <a class='dropdown-item' href='admin.php'>Dashboard</a>
+                    <a class='dropdown-item' href='logout.php'>Logout</a>
+                </div>
+            </li>";
+                } else {
+                    echo " <li class='dropdown'>
                 <button class='btn btn-success mr-3 text-white dropdown-toggle' data-toggle='dropdown'>
                     Hi " . $_SESSION['username'] . "
                 </button>
@@ -68,10 +80,11 @@ session_start();
                     <a class='dropdown-item' href='logout.php'>Logout</a>
                 </div>
             </li>";
+                }
             } else {
-                echo "<li?>
+                echo "<li>
                 <a href='login.php' class='btn btn-success mr-3'>Login</a>
-            </li?>
+            </li>
             <li>
                 <a href='signup.php' class='btn btn-success'>Sign up</a>
             </li>";

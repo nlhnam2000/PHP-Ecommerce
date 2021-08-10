@@ -141,16 +141,34 @@ for (let i = 0; i < qtyUp.length; i++) {
   });
 }
 
-var passConfirmed = document.querySelector("#confirm-password");
-passConfirmed.addEventListener("keyup", async (event) => {
-  let pass = await document.querySelector("#password").value;
-  let signupBtn = document.querySelector("#signupBtn");
-  let errorField = document.querySelector("#signup-verification");
-  if (event.target.value !== pass) {
-    errorField.innerHTML = "Password doesnt match !";
-    signupBtn.disabled = true;
-  } else {
-    errorField.innerHTML = "";
-    signupBtn.disabled = false;
-  }
-});
+// var passConfirmed = document.querySelector("#confirm-password");
+// passConfirmed.addEventListener("keyup", async (event) => {
+//   let pass = await document.querySelector("#password").value;
+//   let signupBtn = document.querySelector("#signupBtn");
+//   let errorField = document.querySelector("#signup-verification");
+//   if (event.target.value !== pass) {
+//     errorField.innerHTML = "Password doesnt match !";
+//     signupBtn.disabled = true;
+//   } else {
+//     errorField.innerHTML = "";
+//     signupBtn.disabled = false;
+//   }
+// });
+
+var invoiceStatus = document.querySelectorAll(".invoice-status button");
+for (let i = 0; i < invoiceStatus.length; i++) {
+  invoiceStatus[i].addEventListener("click", function () {
+    $.ajax({
+      url: "template/invoice-ajax.php",
+      type: "post",
+      async: false,
+      data: {
+        status: invoiceStatus[i].innerHTML,
+      },
+      success: function (data) {
+        $("#invoice-status-content").html(data);
+      },
+    });
+    // alert(invoiceStatus[i].innerHTML)
+  });
+}

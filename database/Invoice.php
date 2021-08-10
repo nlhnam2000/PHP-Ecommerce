@@ -35,12 +35,12 @@ class Invoice
         return $response;
     }
 
-    public function getAllInvoices($status = null)
+    public function getInvoiceStatus($status)
     {
-        if ($status === null) {
+        if ($status == 'All') {
             $sql = "SELECT U.fullname, I.* FROM Invoice I JOIN User_DB U ON I.user_id = U.user_id ORDER BY dateOfBill DESC";
         } else {
-            $sql = "SELECT U.fullname, I.* FROM Invoice I JOIN User_DB U ON I.user_id = U.user_id AND I.status = $status ORDER BY dateOfBill DESC";
+            $sql = "SELECT U.fullname, I.* FROM Invoice I JOIN User_DB U ON I.user_id = U.user_id AND I.status = '{$status}' ORDER BY dateOfBill DESC";
         }
         $query = $this->db->query($sql);
 
